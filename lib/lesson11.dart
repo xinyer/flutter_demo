@@ -1,11 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'lesson1.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp(
+    items: ['abc', 'adb'],
+  ));
 }
 
 class MyApp extends StatelessWidget {
+  final List<String> items;
+
+  MyApp({Key key, @required this.items}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,22 +28,16 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text(title),
         ),
-        body: ListView(
-          children: <Widget>[
-            new ListTile(
-              title: new Text('lesson1'),
+        body: ListView.builder(
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text('${items[index]}'),
               onTap: () {
-                Navigator.push(context, new MaterialPageRoute(builder: (context) => Lesson1()));
+                Navigator.push(context, new MaterialPageRoute(builder: (context) => new Lesson1()));
               },
-            ),
-            new ListTile(
-              title: new Text('lesson2'),
-//              onTap: () {
-//                Navigator.push(context, new MaterialPageRoute(builder: (context) => new Lesson1()));
-//              },
-            )
-
-          ],
+            );
+          },
         ),
       ),
     );
